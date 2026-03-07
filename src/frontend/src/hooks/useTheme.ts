@@ -4,9 +4,11 @@ type Theme = "dark" | "light";
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "dark";
-    const stored = localStorage.getItem("portfolio-theme") as Theme | null;
-    return stored ?? "dark";
+    // Always force dark on initial load regardless of stored preference
+    if (typeof window !== "undefined") {
+      localStorage.setItem("portfolio-theme", "dark");
+    }
+    return "dark";
   });
 
   useEffect(() => {
@@ -24,7 +26,8 @@ export function useTheme() {
       ?.setAttribute("content", theme === "dark" ? "#120a02" : "#faf8f4");
   }, [theme]);
 
+  const applyTheme = (t: Theme) => setTheme(t);
   const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
-  return { theme, toggle };
+  return { theme, toggle, applyTheme };
 }

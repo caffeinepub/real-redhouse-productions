@@ -234,6 +234,15 @@
     box-shadow: 0 0 20px oklch(var(--amber) / 0.15);
   }
 
+  /* Hide scrollbar utility (for mobile carousels) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   /* Scrollbar styling */
   ::-webkit-scrollbar {
     width: 6px;

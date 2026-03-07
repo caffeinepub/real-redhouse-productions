@@ -108,12 +108,17 @@ export default {
           "0%": { backgroundPosition: "50% 50%" },
           "100%": { backgroundPosition: "55% 45%" },
         },
+        "fade-in": {
+          from: { opacity: "0", transform: "translateY(16px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "flicker": "flicker 4s ease-in-out infinite",
         "pan-slow": "pan-slow 20s ease-in-out infinite alternate",
+        "fade-in": "fade-in 0.6s ease-out both",
       },
     },
   },

@@ -1,6 +1,11 @@
 import { cn } from "@/lib/utils";
-import { Film, Globe, Megaphone } from "lucide-react";
+import { Film, Globe, Megaphone, Trophy } from "lucide-react";
 import { useInView } from "../hooks/useInView";
+
+const stats = [
+  { value: "50+", label: "Projects Distributed" },
+  { value: "7.7 Million+", label: "Worldwide Audience", pulse: true },
+];
 
 const LOGO_URL = "https://i.postimg.cc/mDcXtr22/Logopit-1609740112774.png";
 const PITCH_EMAIL = "mailto:rremediabusiness@gmail.com";
@@ -8,8 +13,8 @@ const PITCH_EMAIL = "mailto:rremediabusiness@gmail.com";
 const pillars = [
   {
     icon: Film,
-    title: "Video Premiere",
-    body: "Official release under our banner on our growing YouTube network — your film, presented with the credibility it deserves.",
+    title: "Independent Digital Premiere",
+    body: "Official release under our banner. We leverage our curated digital network to give your indie project a targeted, high-visibility online launch.",
   },
   {
     icon: Globe,
@@ -21,16 +26,22 @@ const pillars = [
     title: "PR & Strategic Marketing",
     body: "End-to-end promotional campaigns, poster reveals, and digital PR — building the buzz before, during, and after release.",
   },
+  {
+    icon: Trophy,
+    title: "Festival Strategy & Circuit",
+    body: "We don't just release; we compete. Strategic curation and submissions to targeted independent film festivals to help your project earn global prestige and laurels.",
+  },
 ];
 
 export default function RealRedhouseSection() {
   const [headingRef, headingInView] = useInView<HTMLDivElement>();
   const [subtitleRef, subtitleInView] = useInView<HTMLDivElement>();
+  const [statsRef, statsInView] = useInView<HTMLDivElement>();
 
   return (
     <section
       id="redhouse"
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative pt-8 pb-24 md:pt-10 md:pb-32 overflow-hidden"
       style={{
         background:
           "linear-gradient(135deg, oklch(0.07 0.018 15) 0%, oklch(0.09 0.022 20) 40%, oklch(0.08 0.015 10) 100%)",
@@ -69,21 +80,24 @@ export default function RealRedhouseSection() {
           ref={headingRef}
           className={cn("fade-in-up mb-4", headingInView && "in-view")}
         >
-          <p className="text-xs tracking-cinematic uppercase text-amber/80 font-display mb-5">
-            Production & Distribution
+          {/* Orange eyebrow */}
+          <p className="text-xs tracking-cinematic uppercase text-amber font-display mb-4">
+            Distribution Wing
           </p>
 
-          {/* Logo + Title row */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-3">
+          {/* Massive heading — matches Projects section */}
+          <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-white leading-tight mb-4">
+            Real Redhouse Productions
+          </h2>
+
+          {/* Logo below heading */}
+          <div className="mb-3">
             <img
               src={LOGO_URL}
               alt="Real Redhouse Productions logo"
-              className="h-[80px] w-auto object-contain flex-shrink-0 drop-shadow-[0_0_12px_rgba(180,30,30,0.4)]"
+              className="h-[80px] w-auto object-contain drop-shadow-[0_0_12px_rgba(180,30,30,0.4)]"
               loading="lazy"
             />
-            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-white leading-tight">
-              Real Redhouse Productions
-            </h2>
           </div>
 
           <div className="mt-2 w-16 h-px bg-red-700 opacity-70" />
@@ -93,7 +107,7 @@ export default function RealRedhouseSection() {
         <div
           ref={subtitleRef}
           className={cn(
-            "fade-in-up mb-16 max-w-2xl",
+            "fade-in-up mb-8 max-w-2xl",
             subtitleInView && "in-view",
           )}
         >
@@ -106,8 +120,35 @@ export default function RealRedhouseSection() {
           </p>
         </div>
 
-        {/* ── Three Pillars ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {/* ── Stats ── */}
+        <div
+          ref={statsRef}
+          className={cn(
+            "mb-12 flex items-center gap-12 md:gap-20",
+            statsInView ? "animate-fade-in" : "opacity-0",
+          )}
+          data-ocid="redhouse.stats.panel"
+        >
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div
+                className={cn(
+                  "font-display font-bold text-4xl md:text-5xl leading-none mb-1 text-amber",
+                  stat.pulse && "animate-pulse",
+                )}
+                style={{ textShadow: "0 0 28px oklch(0.65 0.18 60 / 0.45)" }}
+              >
+                {stat.value}
+              </div>
+              <div className="text-xs md:text-sm text-muted-foreground font-body tracking-wide">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── 2×2 Grid ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
           {pillars.map((pillar, i) => (
             <PillarCard key={pillar.title} pillar={pillar} index={i} />
           ))}
