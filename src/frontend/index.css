@@ -234,6 +234,15 @@
     box-shadow: 0 0 20px oklch(var(--amber) / 0.15);
   }
 
+  /* ── WWML card: slow breathing pulse on blurred background ── */
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.75; }
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
   /* Hide scrollbar utility (for mobile carousels) */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;

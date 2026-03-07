@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { useInView } from "../hooks/useInView";
+
+const WWML_POSTER = "https://i.imghippo.com/files/dwM7055AQo.jpg";
 const tumseHiImg =
   "https://i.postimg.cc/fTy0nWxv/Document_from_Sayan_Mojumder_1.jpg";
 const alvidaImg = "https://i.postimg.cc/mDrFLT0v/THUMB.jpg";
@@ -36,7 +38,7 @@ const staticProjects: ProjectCardData[] = [
     logline:
       "A silent musical-psychological short exploring a love that almost was.",
     genres: "Sci-Fi | Psychological Romance | Musical",
-    image: "/assets/generated/wwml-featured.dim_1200x675.jpg",
+    image: WWML_POSTER,
     teaserStill: "/assets/generated/wwml-teaser-still.dim_800x450.jpg",
     label: "Festival Short · Coming Soon",
     featured: true,
@@ -142,23 +144,57 @@ function FeaturedCard({
       data-ocid={`projects.item.${index + 1}`}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        {/* Image side */}
-        <div className="relative overflow-hidden aspect-video lg:aspect-auto lg:min-h-[400px]">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/50 hidden lg:block" />
-          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent lg:hidden" />
-          {project.label && (
-            <div className="absolute top-4 left-4">
-              <span className="bg-background/80 backdrop-blur-sm text-amber text-xs px-3 py-1.5 rounded-sm tracking-wide border border-amber/30 font-display uppercase">
-                {project.label}
+        {/* Image side — Premium "First Look" layout */}
+        <div className="relative overflow-hidden aspect-video lg:aspect-auto lg:min-h-[480px] flex items-center justify-center">
+          {/* Background layer: blurred poster + dark overlay + slow pulse glow */}
+          <div
+            className="absolute inset-0 animate-pulse-slow"
+            style={{ animationDuration: "4s" }}
+          >
+            <img
+              src={project.image}
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover"
+              style={{ filter: "blur(20px)", transform: "scale(1.15)" }}
+            />
+            {/* 60% black darkening overlay */}
+            <div className="absolute inset-0 bg-black/60" />
+          </div>
+
+          {/* Foreground: vertical glassmorphism poster card */}
+          <div className="relative z-10 flex flex-col items-center justify-center h-full py-8 px-6 w-full">
+            {/* First Look badge */}
+            <div className="mb-4">
+              <span
+                className="inline-block text-[10px] font-light tracking-[0.35em] uppercase px-4 py-1.5 rounded-full border border-amber/50 text-amber bg-black/40 backdrop-blur-sm"
+                style={{ letterSpacing: "0.35em" }}
+              >
+                FIRST LOOK · COMING SOON
               </span>
             </div>
-          )}
+
+            {/* Poster card (glassmorphism) */}
+            <div
+              className="rounded-lg shadow-2xl border border-white/20 overflow-hidden"
+              style={{
+                maxHeight: "380px",
+                maxWidth: "220px",
+                width: "100%",
+                backdropFilter: "blur(4px)",
+                boxShadow:
+                  "0 25px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08)",
+              }}
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover object-top"
+                loading="lazy"
+                style={{ display: "block" }}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Text side */}

@@ -1,10 +1,72 @@
 import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
 
-const stats = [
-  { value: "15+", label: "Cover Songs\nProduced", key: "covers" },
-  { value: "4", label: "Music Videos\nDirected/Assisted", key: "videos" },
-  { value: "1", label: "Upcoming\nFestival Short", key: "festival" },
+// Stats configuration: target value, suffix, and label
+const STATS = [
+  { target: 15, suffix: "+", label: "Cover Songs\nProduced", key: "covers" },
+  {
+    target: 4,
+    suffix: "",
+    label: "Music Videos\nDirected/Assisted",
+    key: "videos",
+  },
+  { target: 1, suffix: "", label: "Upcoming\nFestival Short", key: "festival" },
 ];
+
+const ANIMATION_DELAY_MS = 4500; // wait for preloader to finish
+const ANIMATION_DURATION_MS = 2000; // all counters share this exact duration
+
+function useCountUp(target: number, delay: number, duration: number) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let rafId: number;
+    let startTime: number | null = null;
+
+    const delayTimer = setTimeout(() => {
+      const step = (timestamp: number) => {
+        if (startTime === null) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // easeOutCubic so all three land at exactly the same moment
+        const eased = 1 - (1 - progress) ** 3;
+        setCount(Math.round(eased * target));
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          setCount(target); // guarantee exact final value
+        }
+      };
+      rafId = requestAnimationFrame(step);
+    }, delay);
+
+    return () => {
+      clearTimeout(delayTimer);
+      cancelAnimationFrame(rafId);
+    };
+  }, [target, delay, duration]);
+
+  return count;
+}
+
+function StatCounter({
+  target,
+  suffix,
+  label,
+}: { target: number; suffix: string; label: string }) {
+  const count = useCountUp(target, ANIMATION_DELAY_MS, ANIMATION_DURATION_MS);
+  return (
+    <div className="text-center">
+      <div className="font-display font-bold text-3xl md:text-4xl text-amber leading-none mb-1">
+        {count}
+        {suffix}
+      </div>
+      <div className="text-xs text-muted-foreground leading-snug whitespace-pre-line font-body">
+        {label}
+      </div>
+    </div>
+  );
+}
 
 export default function HeroSection() {
   const scrollToProjects = () => {
@@ -83,17 +145,15 @@ export default function HeroSection() {
           MUSIC VIDEOS&nbsp;•&nbsp;COMMERCIALS&nbsp;•&nbsp;SHORT FILMS
         </p>
 
-        {/* Stats */}
+        {/* Stats — synchronized count-up after preloader */}
         <div className="flex items-center justify-center gap-8 md:gap-16 mb-12">
-          {stats.map((stat) => (
-            <div key={stat.key} className="text-center">
-              <div className="font-display font-bold text-3xl md:text-4xl text-amber leading-none mb-1">
-                {stat.value}
-              </div>
-              <div className="text-xs text-muted-foreground leading-snug whitespace-pre-line font-body">
-                {stat.label}
-              </div>
-            </div>
+          {STATS.map((stat) => (
+            <StatCounter
+              key={stat.key}
+              target={stat.target}
+              suffix={stat.suffix}
+              label={stat.label}
+            />
           ))}
         </div>
 

@@ -1,5 +1,13 @@
 import { cn } from "@/lib/utils";
-import { Music, Palette, Scissors, Video } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Music,
+  Palette,
+  Scissors,
+  Video,
+} from "lucide-react";
+import { useRef } from "react";
 import { useInView } from "../hooks/useInView";
 
 // ─── Arsenal Data ─────────────────────────────────────────────────────────────
@@ -191,6 +199,12 @@ function DeepDiveBlock({ block }: DeepDiveBlockProps) {
 export default function ServicesSection() {
   const [headingRef, headingInView] = useInView<HTMLDivElement>();
   const [craftRef, craftInView] = useInView<HTMLDivElement>();
+  const arsenalRef = useRef<HTMLDivElement>(null);
+
+  const scrollArsenalLeft = () =>
+    arsenalRef.current?.scrollBy({ left: -300, behavior: "smooth" });
+  const scrollArsenalRight = () =>
+    arsenalRef.current?.scrollBy({ left: 300, behavior: "smooth" });
 
   return (
     <section id="services" className="py-24 md:py-32 bg-background">
@@ -257,13 +271,38 @@ export default function ServicesSection() {
 
         {/* ── THE ARSENAL carousel ─────────────────────────── */}
         <div className="mt-16">
-          <p className="text-xs tracking-cinematic uppercase text-amber font-display mb-3">
-            THE ARSENAL
-          </p>
+          {/* Heading row — arrows sit on the right on desktop */}
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-xs tracking-cinematic uppercase text-amber font-display">
+              THE ARSENAL
+            </p>
+            {/* Desktop-only nav arrows */}
+            <div className="hidden md:flex items-center gap-2">
+              <button
+                type="button"
+                onClick={scrollArsenalLeft}
+                aria-label="Scroll left"
+                data-ocid="services.arsenal.pagination_prev"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-white transition-colors cursor-pointer"
+              >
+                <ChevronLeft size={18} strokeWidth={2} />
+              </button>
+              <button
+                type="button"
+                onClick={scrollArsenalRight}
+                aria-label="Scroll right"
+                data-ocid="services.arsenal.pagination_next"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-white transition-colors cursor-pointer"
+              >
+                <ChevronRight size={18} strokeWidth={2} />
+              </button>
+            </div>
+          </div>
           <div className="w-16 h-px bg-amber opacity-60 mb-6" />
 
           {/* Scrollable carousel — scrollbar hidden on all screen sizes */}
           <div
+            ref={arsenalRef}
             className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory gap-4 pb-8 scrollbar-hide"
             style={{ scrollSnapType: "x mandatory" }}
             data-ocid="services.arsenal.list"

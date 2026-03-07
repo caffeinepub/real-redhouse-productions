@@ -61,6 +61,12 @@ export default function ContactSection() {
       }}
     >
       <div className="max-w-3xl mx-auto px-6">
+        {/* Maintenance alert */}
+        <p className="text-sm text-red-500 font-semibold text-center mb-6">
+          ⚠️ The direct messaging form is currently undergoing maintenance.
+          Please use the direct email link below to reach out.
+        </p>
+
         {/* Heading */}
         <div
           ref={headingRef}
