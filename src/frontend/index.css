@@ -252,6 +252,27 @@
     scrollbar-width: none;
   }
 
+  /* ── Announcement Ticker marquee ── */
+  @keyframes marquee-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-track {
+    animation: marquee-scroll 38s linear infinite;
+  }
+
+  /* Pause on hover OR touch-hold (active state) */
+  .ticker-track:hover,
+  .ticker-track:active {
+    animation-play-state: paused;
+  }
+
+  /* Also pause when the parent wrapper is hovered */
+  [data-ocid="ticker.panel"]:hover .ticker-track {
+    animation-play-state: paused;
+  }
+
   /* Scrollbar styling */
   ::-webkit-scrollbar {
     width: 6px;

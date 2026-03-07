@@ -15,8 +15,8 @@ function ActivePressCard({ index }: { index: number }) {
       ref={ref}
       className={cn(
         "fade-in-up group rounded-xl overflow-hidden cursor-pointer",
-        "min-w-[85vw] snap-start flex-shrink-0",
-        "md:min-w-0 md:flex-shrink md:snap-align-none",
+        "w-[80vw] max-w-[300px] flex-shrink-0 snap-start",
+        "md:w-auto md:max-w-none md:flex-shrink md:snap-align-none",
         inView && "in-view",
       )}
       style={{
@@ -29,11 +29,11 @@ function ActivePressCard({ index }: { index: number }) {
       data-ocid="smc.press_card.1"
     >
       {/* Article image with Instagram-style zoom */}
-      <div className="relative overflow-hidden aspect-[4/5]">
+      <div className="relative overflow-hidden h-[240px] md:aspect-[4/5] md:h-auto">
         <img
           src="https://i.postimg.cc/c4ZXJR93/And-here-we-go-The-biggest-digital-news-platform-of-India-Daily-Hunt-(-dailyhuntapp)-is-featuri.jpg"
           alt="Dailyhunt feature on Sayan Mojumder"
-          className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 active:scale-110"
+          className="w-full h-full object-contain md:object-contain transition-transform duration-300 group-hover:scale-110 active:scale-110"
           style={{ background: "oklch(0.07 0.005 220)" }}
         />
         {/* Live badge */}
@@ -47,16 +47,16 @@ function ActivePressCard({ index }: { index: number }) {
 
       {/* Card footer */}
       <div
-        className="p-4"
+        className="p-3 md:p-4"
         style={{ borderTop: "1px solid oklch(0.22 0.008 220 / 0.4)" }}
       >
         <p
-          className="text-xs font-display uppercase tracking-[0.18em] font-bold mb-1"
+          className="text-[10px] md:text-xs font-display uppercase tracking-[0.18em] font-bold mb-1"
           style={{ color: "oklch(0.72 0.18 55)" }}
         >
           Dailyhunt
         </p>
-        <p className="text-sm font-body text-white/75 leading-snug">
+        <p className="text-xs md:text-sm font-body text-white/75 leading-snug">
           Sayan Mojumdar unveils a fresh take on web series as part of his
           latest project.
         </p>
@@ -75,8 +75,8 @@ function AnticipationCard({ index, label }: { index: number; label: string }) {
       ref={ref}
       className={cn(
         "fade-in-up group rounded-xl overflow-hidden cursor-default select-none",
-        "min-w-[85vw] snap-start flex-shrink-0",
-        "md:min-w-0 md:flex-shrink md:snap-align-none",
+        "w-[80vw] max-w-[300px] flex-shrink-0 snap-start",
+        "md:w-auto md:max-w-none md:flex-shrink md:snap-align-none",
         inView && "in-view",
       )}
       style={{
@@ -90,7 +90,7 @@ function AnticipationCard({ index, label }: { index: number; label: string }) {
     >
       {/* Visual area — dimmed wireframe gradient */}
       <div
-        className="relative overflow-hidden aspect-[4/5] flex flex-col items-center justify-center gap-5"
+        className="relative overflow-hidden h-[240px] md:aspect-[4/5] md:h-auto flex flex-col items-center justify-center gap-5"
         style={{
           background:
             "linear-gradient(160deg, oklch(0.08 0.006 230 / 0.95), oklch(0.06 0.004 210))",

@@ -1,12 +1,14 @@
 import { Toaster } from "@/components/ui/sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AboutSection from "./components/AboutSection";
+import AnnouncementTicker from "./components/AnnouncementTicker";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
 import NolanModal from "./components/NolanModal";
 import Preloader from "./components/Preloader";
+import ProductionUpdateModal from "./components/ProductionUpdateModal";
 import ProjectsSection from "./components/ProjectsSection";
 import RealRedhouseSection from "./components/RealRedhouseSection";
 import SMCSection from "./components/SMCSection";
@@ -17,7 +19,18 @@ export default function App() {
   const { theme, applyTheme } = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Intercept: dark -> show modal; light -> go straight back to dark
+  // Production Update Modal state
+  const [productionModalOpen, setProductionModalOpen] = useState(false);
+
+  // Auto-open Production Update Modal 8 seconds after load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setProductionModalOpen(true);
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Intercept: dark -> show Nolan modal; light -> go straight back to dark
   const handleThemeToggle = () => {
     if (theme === "dark") {
       setModalOpen(true);
@@ -39,6 +52,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
       <Preloader />
+      {/* Announcement ticker sits at z-[100]; navbar pushed down by ticker height (36px) */}
+      <AnnouncementTicker onOpen={() => setProductionModalOpen(true)} />
       <Navbar theme={theme} onThemeToggle={handleThemeToggle} />
       <main>
         <HeroSection />
@@ -54,6 +69,10 @@ export default function App() {
         open={modalOpen}
         onCancel={handleModalCancel}
         onConfirm={handleModalConfirm}
+      />
+      <ProductionUpdateModal
+        open={productionModalOpen}
+        onClose={() => setProductionModalOpen(false)}
       />
       <Toaster
         position="bottom-right"
