@@ -138,17 +138,37 @@ function FeaturedCard({
     <div
       ref={ref}
       className={cn(
-        "fade-in-up project-card col-span-full rounded-sm overflow-hidden border border-border/50 bg-card group cursor-pointer",
+        "fade-in-up project-card col-span-full rounded-sm overflow-hidden border border-border/50 group cursor-pointer",
         inView && "in-view",
       )}
       data-ocid={`projects.item.${index + 1}`}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        {/* Image side — Premium "First Look" layout */}
-        <div className="relative overflow-hidden aspect-video lg:aspect-auto lg:min-h-[480px] flex items-center justify-center">
-          {/* Background layer: blurred poster + dark overlay + slow pulse glow */}
+        {/* ─── IMAGE SIDE ─── */}
+
+        {/* MOBILE: solid black, badge centered only */}
+        <div className="relative overflow-hidden aspect-video lg:hidden flex items-center justify-center bg-black">
+          {/* Badge centered on mobile */}
+          <div className="flex items-center justify-center w-full h-full px-6">
+            <span
+              className="font-extralight uppercase text-center"
+              style={{
+                fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+                fontSize: "10px",
+                letterSpacing: "0.4em",
+                color: "var(--color-amber, #f59e0b)",
+              }}
+            >
+              FIRST LOOK · COMING SOON
+            </span>
+          </div>
+        </div>
+
+        {/* DESKTOP: full premium — blurred bg + pulse + central poster */}
+        <div className="relative overflow-hidden hidden lg:flex lg:min-h-[480px] items-center justify-center">
+          {/* Background layer: poster image, heavy blur, 60% dark overlay, slow pulse */}
           <div
-            className="absolute inset-0 animate-pulse-slow"
+            className="absolute inset-0 animate-pulse"
             style={{ animationDuration: "4s" }}
           >
             <img
@@ -156,31 +176,20 @@ function FeaturedCard({
               alt=""
               aria-hidden="true"
               className="w-full h-full object-cover"
-              style={{ filter: "blur(20px)", transform: "scale(1.15)" }}
+              style={{ filter: "blur(24px)", transform: "scale(1.2)" }}
             />
             {/* 60% black darkening overlay */}
             <div className="absolute inset-0 bg-black/60" />
           </div>
 
-          {/* Foreground: vertical glassmorphism poster card */}
+          {/* Foreground: glassmorphism vertical poster card */}
           <div className="relative z-10 flex flex-col items-center justify-center h-full py-8 px-6 w-full">
-            {/* First Look badge */}
-            <div className="mb-4">
-              <span
-                className="inline-block text-[10px] font-light tracking-[0.35em] uppercase px-4 py-1.5 rounded-full border border-amber/50 text-amber bg-black/40 backdrop-blur-sm"
-                style={{ letterSpacing: "0.35em" }}
-              >
-                FIRST LOOK · COMING SOON
-              </span>
-            </div>
-
-            {/* Poster card (glassmorphism) */}
             <div
-              className="rounded-lg shadow-2xl border border-white/20 overflow-hidden"
+              className="relative rounded-lg shadow-2xl border border-white/20 overflow-hidden"
               style={{
-                maxHeight: "380px",
-                maxWidth: "220px",
-                width: "100%",
+                width: "260px",
+                maxWidth: "300px",
+                aspectRatio: "3/4",
                 backdropFilter: "blur(4px)",
                 boxShadow:
                   "0 25px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08)",
@@ -189,16 +198,33 @@ function FeaturedCard({
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-contain"
                 loading="lazy"
-                style={{ display: "block" }}
+                style={{ display: "block", background: "#000" }}
               />
+
+              {/* First Look badge — across the top of the poster */}
+              <div className="absolute top-0 left-0 right-0 flex justify-center z-20">
+                <div className="w-full bg-black/60 px-3 py-2 flex justify-center">
+                  <span
+                    className="font-extralight uppercase whitespace-nowrap"
+                    style={{
+                      fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+                      fontSize: "9px",
+                      letterSpacing: "0.4em",
+                      color: "var(--color-amber, #f59e0b)",
+                    }}
+                  >
+                    FIRST LOOK · COMING SOON
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Text side */}
-        <div className="p-8 lg:p-12 flex flex-col justify-center gap-4">
+        {/* ─── TEXT SIDE ─── */}
+        <div className="p-8 lg:p-12 flex flex-col justify-center gap-4 bg-card">
           <div className="flex items-center gap-3 flex-wrap">
             <RoleBadges roles={project.roles} />
             {project.imdb && <ImdbButton href={project.imdb} />}
