@@ -1,20 +1,20 @@
 import { cn } from "@/lib/utils";
-import { Clapperboard, Newspaper } from "lucide-react";
+import { Clapperboard } from "lucide-react";
 import { useState } from "react";
 import { useInView } from "../hooks/useInView";
 
 const PITCH_EMAIL = "mailto:sayanmojumderreal@gmail.com";
 
-// ── Press Card ──────────────────────────────────────────────────────────────
+// ── Active Press Card (Card 1) ───────────────────────────────────────────────
 
-function PressCard({ index }: { index: number }) {
+function ActivePressCard({ index }: { index: number }) {
   const [ref, inView] = useInView<HTMLDivElement>();
 
   return (
     <div
       ref={ref}
       className={cn(
-        "fade-in-up group rounded-sm overflow-hidden cursor-pointer",
+        "fade-in-up group rounded-xl overflow-hidden cursor-pointer",
         "min-w-[85vw] snap-start flex-shrink-0",
         "md:min-w-0 md:flex-shrink md:snap-align-none",
         inView && "in-view",
@@ -22,45 +22,136 @@ function PressCard({ index }: { index: number }) {
       style={{
         animationDelay: `${index * 100}ms`,
         transitionDelay: `${index * 100}ms`,
-        background:
-          "linear-gradient(145deg, oklch(0.10 0.007 220 / 0.85), oklch(0.08 0.005 210 / 0.9))",
-        border: "1px solid oklch(0.22 0.008 220 / 0.6)",
+        background: "oklch(0.10 0.007 220)",
+        border: "1px solid oklch(0.28 0.01 220 / 0.7)",
+        boxShadow: "0 4px 24px oklch(0 0 0 / 0.4)",
       }}
-      data-ocid={`smc.press_card.${index}`}
+      data-ocid="smc.press_card.1"
     >
-      {/* Image placeholder */}
-      <div
-        className="relative overflow-hidden aspect-[16/10]"
-        style={{
-          background:
-            "linear-gradient(160deg, oklch(0.12 0.008 220), oklch(0.08 0.005 200))",
-        }}
-      >
-        <div
-          className="absolute inset-0 transition-transform duration-500 group-hover:scale-105 flex flex-col items-center justify-center gap-2"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M 0 0 L 24 0' stroke='%23ffffff' stroke-width='0.3' stroke-opacity='0.04'/%3E%3Cpath d='M 0 0 L 0 24' stroke='%23ffffff' stroke-width='0.3' stroke-opacity='0.04'/%3E%3C/svg%3E")`,
-            backgroundSize: "24px 24px",
-          }}
-        >
-          <Newspaper size={32} strokeWidth={1} className="text-white/20" />
-          <span className="text-xs font-body text-white/30 tracking-wider">
-            [ Article Screenshot ]
+      {/* Article image with Instagram-style zoom */}
+      <div className="relative overflow-hidden aspect-[4/5]">
+        <img
+          src="https://i.postimg.cc/c4ZXJR93/And-here-we-go-The-biggest-digital-news-platform-of-India-Daily-Hunt-(-dailyhuntapp)-is-featuri.jpg"
+          alt="Dailyhunt feature on Sayan Mojumder"
+          className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 active:scale-110"
+          style={{ background: "oklch(0.07 0.005 220)" }}
+        />
+        {/* Live badge */}
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/10">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          <span className="text-[10px] font-display uppercase tracking-[0.15em] text-white/80">
+            Live
           </span>
         </div>
       </div>
 
       {/* Card footer */}
       <div
-        className="p-4 flex items-center gap-2 transition-all duration-300"
+        className="p-4"
         style={{ borderTop: "1px solid oklch(0.22 0.008 220 / 0.4)" }}
+      >
+        <p
+          className="text-xs font-display uppercase tracking-[0.18em] font-bold mb-1"
+          style={{ color: "oklch(0.72 0.18 55)" }}
+        >
+          Dailyhunt
+        </p>
+        <p className="text-sm font-body text-white/75 leading-snug">
+          Sayan Mojumdar unveils a fresh take on web series as part of his
+          latest project.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── Anticipation Placeholder Card (Cards 2 & 3) ───────────────────────────────
+
+function AnticipationCard({ index, label }: { index: number; label: string }) {
+  const [ref, inView] = useInView<HTMLDivElement>();
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "fade-in-up group rounded-xl overflow-hidden cursor-default select-none",
+        "min-w-[85vw] snap-start flex-shrink-0",
+        "md:min-w-0 md:flex-shrink md:snap-align-none",
+        inView && "in-view",
+      )}
+      style={{
+        animationDelay: `${index * 120}ms`,
+        transitionDelay: `${index * 120}ms`,
+        background:
+          "linear-gradient(145deg, oklch(0.09 0.006 220 / 0.9), oklch(0.07 0.004 210))",
+        border: "1px solid oklch(0.20 0.007 220 / 0.5)",
+      }}
+      data-ocid={`smc.press_card.${index}`}
+    >
+      {/* Visual area — dimmed wireframe gradient */}
+      <div
+        className="relative overflow-hidden aspect-[4/5] flex flex-col items-center justify-center gap-5"
+        style={{
+          background:
+            "linear-gradient(160deg, oklch(0.08 0.006 230 / 0.95), oklch(0.06 0.004 210))",
+        }}
+      >
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M 32 0 L 0 0 0 32' fill='none' stroke='%23ffffff' stroke-width='0.5'/%3E%3C/svg%3E")`,
+            backgroundSize: "32px 32px",
+          }}
+        />
+
+        {/* Radial glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 50% at 50% 50%, oklch(0.28 0.02 220 / 0.15), transparent 70%)",
+          }}
+        />
+
+        {/* Coming Soon badge */}
+        <div className="relative flex flex-col items-center gap-3 z-10">
+          {/* Thin top rule */}
+          <div
+            className="w-10 h-px"
+            style={{ background: "oklch(0.50 0.015 220 / 0.5)" }}
+          />
+          <p
+            className="text-[10px] font-display uppercase font-semibold"
+            style={{
+              letterSpacing: "0.35em",
+              color: "oklch(0.55 0.012 220 / 0.7)",
+            }}
+          >
+            {label}
+          </p>
+          {/* Thin bottom rule */}
+          <div
+            className="w-10 h-px"
+            style={{ background: "oklch(0.50 0.015 220 / 0.5)" }}
+          />
+        </div>
+      </div>
+
+      {/* Card footer */}
+      <div
+        className="px-4 py-3 flex items-center gap-2"
+        style={{ borderTop: "1px solid oklch(0.18 0.006 220 / 0.4)" }}
       >
         <span
           className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-          style={{ background: "oklch(0.65 0.18 60)" }}
+          style={{ background: "oklch(0.38 0.01 220 / 0.8)" }}
         />
-        <span className="text-xs font-body text-white/40 tracking-wide">
-          Article Placeholder — Media Mention {index}
+        <span
+          className="text-[10px] font-display uppercase tracking-[0.20em]"
+          style={{ color: "oklch(0.40 0.010 220 / 0.7)" }}
+        >
+          Announcement Pending
         </span>
       </div>
     </div>
@@ -244,9 +335,9 @@ export default function SMCSection() {
 
         {/* Press card container: swipeable horizontal carousel on mobile, 3-col grid on desktop */}
         <div className="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-hide md:grid md:grid-cols-3 md:gap-5 md:overflow-x-visible md:snap-none max-w-5xl mx-auto">
-          {[1, 2, 3].map((i) => (
-            <PressCard key={i} index={i} />
-          ))}
+          <ActivePressCard index={1} />
+          <AnticipationCard index={2} label="Press Release Pending" />
+          <AnticipationCard index={3} label="Upcoming Feature" />
         </div>
       </div>
     </section>
