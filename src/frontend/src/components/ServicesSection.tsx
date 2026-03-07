@@ -1,28 +1,51 @@
 import { cn } from "@/lib/utils";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Music,
-  Palette,
-  Scissors,
-  Video,
-} from "lucide-react";
+import { Music, Palette, Scissors, Video } from "lucide-react";
 import { useRef } from "react";
 import { useInView } from "../hooks/useInView";
+
+// ─── Arsenal blueprint assets (generated — served from public/) ───────────────
+const arsenalFx3 =
+  "/assets/generated/arsenal-sony-fx3-transparent.dim_400x400.png";
+const arsenalA7s =
+  "/assets/generated/arsenal-sony-a7siii-transparent.dim_400x400.png";
+const arsenalGmaster =
+  "/assets/generated/arsenal-sony-gmaster-transparent.dim_400x400.png";
+const arsenalDrone =
+  "/assets/generated/arsenal-dji-drone-transparent.dim_400x400.png";
+const arsenalPlaceholder =
+  "/assets/generated/arsenal-placeholder-transparent.dim_400x400.png";
+const arsenalAudio =
+  "/assets/generated/arsenal-audio-recorder-transparent.dim_400x400.png";
+const arsenalDaVinci =
+  "/assets/generated/arsenal-davinci-resolve-transparent.dim_400x400.png";
+const arsenalAfterEffects =
+  "/assets/generated/arsenal-after-effects-transparent.dim_400x400.png";
+const arsenalGimbal =
+  "/assets/generated/arsenal-gimbal-transparent.dim_400x400.png";
+const arsenalPremiere =
+  "/assets/generated/arsenal-premiere-pro-transparent.dim_400x400.png";
 
 // ─── Arsenal Data ─────────────────────────────────────────────────────────────
 
 const arsenalItems = [
-  { name: "Sony FX3", category: "Cinema Line" },
-  { name: "Sony A7S III", category: "Alpha Series" },
-  { name: "Sony G-Master", category: "Premium Optics" },
-  { name: "DJI Mini 4 Pro", category: "Aerial Cinematography" },
-  { name: "Aputure", category: "Cinematic Lighting" },
-  { name: "Audient & Yamaha", category: "Pro Audio & Interface" },
-  { name: "DaVinci Resolve", category: "Color & Edit" },
-  { name: "Blender", category: "3D & VFX" },
-  { name: "FL Studio", category: "Audio Engineering" },
-  { name: "Dolby Atmos", category: "Spatial Audio" },
+  { name: "Sony FX3", category: "Cinema Line", img: arsenalFx3 },
+  { name: "Sony A7S III", category: "Alpha Series", img: arsenalA7s },
+  { name: "Sony G-Master", category: "Premium Optics", img: arsenalGmaster },
+  {
+    name: "DJI Mini 4 Pro",
+    category: "Aerial Cinematography",
+    img: arsenalDrone,
+  },
+  { name: "Aputure", category: "Cinematic Lighting", img: arsenalPlaceholder },
+  {
+    name: "Audient & Yamaha",
+    category: "Pro Audio & Interface",
+    img: arsenalAudio,
+  },
+  { name: "DaVinci Resolve", category: "Color & Edit", img: arsenalDaVinci },
+  { name: "Blender", category: "3D & VFX", img: arsenalAfterEffects },
+  { name: "FL Studio", category: "Audio Engineering", img: arsenalPremiere },
+  { name: "Dolby Atmos", category: "Spatial Audio", img: arsenalGimbal },
 ] as const;
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -63,6 +86,8 @@ const deepDiveBlocks = [
     heading: "Direction & Screenwriting",
     subtitle: "Orchestrating the Visual Syntax.",
     body: "A cinematic narrative is built long before the camera rolls. Whether I am crafting an original screenplay grounded in narrative economy, or executing a commissioned script, my objective remains the same: translating the written word into a visceral on-screen reality. This directorial approach applies strictly across all formats—from an intimate, festival-bound short film and character-driven web series, to full-scale features. From designing the mise-en-scène and staging complex blocking, to modulating actor performances for subtextual depth, I ensure the psychological intent of the story dictates every single frame.",
+    image:
+      "https://i.postimg.cc/7PJ4qkCV/lots-led-lightning-systems-few-with-color-filters-stairs-movie-set.jpg",
     textLeft: true,
   },
   {
@@ -70,6 +95,7 @@ const deepDiveBlocks = [
     heading: "Music Video Production",
     subtitle: "Turnkey Execution: From Audio Engineering to Visual Master.",
     body: "A music video is a delicate exercise in audio-visual synchronization. We offer complete, end-to-end turnkey execution, catering to projects at any stage of development. Whether you are handing over a locked master track, or require the sonic landscape to be built entirely from the ground up, our infrastructure handles it all. Beyond our in-house music production suite—equipped for full-scale audio engineering and sourcing accomplished vocal artists—our team manages the entire cinematic pipeline. From crewing seasoned Directors of Photography (DPs) and designing lighting schematics for rigorous principal photography, to dictating the rhythmic pacing in the edit suite, we take full ownership of delivering a cohesive, premium audio-visual product.",
+    image: "https://i.postimg.cc/6368FPbs/THUMB-TSH.jpg",
     textLeft: false,
   },
   {
@@ -77,6 +103,7 @@ const deepDiveBlocks = [
     heading: "Narrative & Rhythmic Editing",
     subtitle: "Sculpting the Temporal Architecture.",
     body: "Editing is the final rewrite of any project. With five years of intensive experience exclusively within the DaVinci Resolve ecosystem, my approach goes far beyond assembling clips. Whether I am dictating the kinetic, rhythmic pacing of a music video, preserving spatial continuity in a dramatic short film, or weaving complex character arcs across a multi-episodic web series, I treat the timeline as a psychological tool. My focus is strictly on meticulous shot selection, narrative economy, and constructing a seamless temporal flow that commands the audience's emotional engagement.",
+    image: "https://i.postimg.cc/G2pf7kYr/20260308-020613.avif",
     textLeft: true,
   },
   {
@@ -84,9 +111,11 @@ const deepDiveBlocks = [
     heading: "Cinematic Color Grading",
     subtitle: "DaVinci Resolve Certified Look Development.",
     body: "Color is an essential storytelling mechanism, not just a post-production aesthetic. As a DaVinci Resolve Certified colorist, I leverage advanced, node-based workflows to craft precise visual identities. My grading pipeline encompasses meticulous primary color correction, seamless shot-matching, and complex secondary tracking for stylized look development. Whether establishing the gritty palette of an independent film or web series, refining the high-end gloss of a commercial, or elevating a cinematic pre-wedding or wedding film to a theatrical standard, I manipulate luminance, contrast, and color separation to evoke the exact psychological response your project demands.",
+    image:
+      "https://i.postimg.cc/sXwr1jY6/wp14194051-davinci-resolve-4k-wallpapers-jpg.jpg",
     textLeft: false,
   },
-] as const;
+];
 
 // ─── Smooth Scroll Helper ─────────────────────────────────────────────────────
 
@@ -161,7 +190,7 @@ function DeepDiveBlock({ block }: DeepDiveBlockProps) {
         inView && "in-view",
       )}
     >
-      {/* CSS placeholder — always rendered first on mobile via order */}
+      {/* Image — always rendered first on mobile via order */}
       <div
         className={cn(
           "order-first w-full relative z-10",
@@ -169,7 +198,11 @@ function DeepDiveBlock({ block }: DeepDiveBlockProps) {
           block.textLeft ? "md:-ml-8" : "md:-mr-8",
         )}
       >
-        <div className="bg-zinc-900 border border-zinc-800 rounded-sm aspect-video w-full" />
+        <img
+          src={block.image}
+          alt={block.heading}
+          className="w-full aspect-video object-cover rounded-sm border border-white/10 shadow-2xl"
+        />
       </div>
 
       {/* Text column */}
@@ -276,25 +309,69 @@ export default function ServicesSection() {
             <p className="text-xs tracking-cinematic uppercase text-amber font-display">
               THE ARSENAL
             </p>
-            {/* Desktop-only nav arrows */}
-            <div className="hidden md:flex items-center gap-2">
+            {/* Desktop-only nav arrows — glowing wireframe style */}
+            <div className="hidden md:flex items-center gap-3">
               <button
                 type="button"
                 onClick={scrollArsenalLeft}
                 aria-label="Scroll left"
                 data-ocid="services.arsenal.pagination_prev"
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-white transition-colors cursor-pointer"
+                className={cn(
+                  "w-9 h-9 flex items-center justify-center rounded-full cursor-pointer",
+                  "border border-cyan-400/40 bg-transparent",
+                  "text-cyan-300 hover:text-white",
+                  "hover:border-cyan-300/80 hover:shadow-[0_0_12px_rgba(34,211,238,0.5),inset_0_0_8px_rgba(34,211,238,0.1)]",
+                  "transition-all duration-300",
+                )}
               >
-                <ChevronLeft size={18} strokeWidth={2} />
+                {/* SVG wireframe left chevron */}
+                <svg
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  className="w-4 h-4"
+                  strokeWidth="1.5"
+                  aria-label="Scroll left"
+                  role="img"
+                >
+                  <title>Scroll left</title>
+                  <polyline
+                    points="11,4 6,9 11,14"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </button>
               <button
                 type="button"
                 onClick={scrollArsenalRight}
                 aria-label="Scroll right"
                 data-ocid="services.arsenal.pagination_next"
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-zinc-800 hover:bg-zinc-700 text-white transition-colors cursor-pointer"
+                className={cn(
+                  "w-9 h-9 flex items-center justify-center rounded-full cursor-pointer",
+                  "border border-cyan-400/40 bg-transparent",
+                  "text-cyan-300 hover:text-white",
+                  "hover:border-cyan-300/80 hover:shadow-[0_0_12px_rgba(34,211,238,0.5),inset_0_0_8px_rgba(34,211,238,0.1)]",
+                  "transition-all duration-300",
+                )}
               >
-                <ChevronRight size={18} strokeWidth={2} />
+                {/* SVG wireframe right chevron */}
+                <svg
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  className="w-4 h-4"
+                  strokeWidth="1.5"
+                  aria-label="Scroll right"
+                  role="img"
+                >
+                  <title>Scroll right</title>
+                  <polyline
+                    points="7,4 12,9 7,14"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </button>
             </div>
           </div>
@@ -314,21 +391,29 @@ export default function ServicesSection() {
                 className={cn(
                   "shrink-0 snap-start",
                   "w-[55vw] md:w-56",
-                  "bg-zinc-900 border border-zinc-800 rounded-md",
-                  "p-4 flex flex-col gap-3",
-                  "hover:border-zinc-700 hover:bg-zinc-800/80 transition-all duration-200",
+                  "bg-zinc-950/80 border border-cyan-500/20 rounded-md",
+                  "p-4 flex flex-col gap-2",
+                  "hover:border-cyan-400/50 hover:bg-zinc-900/80",
+                  "hover:shadow-[0_0_20px_rgba(34,211,238,0.12)]",
+                  "transition-all duration-300 group",
                 )}
               >
-                {/* Logo placeholder */}
-                <div className="h-10 w-10 rounded bg-zinc-800 flex-shrink-0" />
+                {/* Blueprint illustration */}
+                <div className="w-full aspect-square flex items-center justify-center overflow-hidden">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] group-hover:drop-shadow-[0_0_16px_rgba(34,211,238,0.8)] transition-all duration-300"
+                  />
+                </div>
 
                 {/* Brand name */}
-                <p className="font-display font-bold text-white text-sm leading-snug">
+                <p className="font-display font-bold text-white text-sm leading-snug mt-1">
                   {item.name}
                 </p>
 
                 {/* Category */}
-                <p className="text-xs text-zinc-500 font-display tracking-wide">
+                <p className="text-xs text-cyan-400/70 font-display tracking-wide">
                   {item.category}
                 </p>
               </div>

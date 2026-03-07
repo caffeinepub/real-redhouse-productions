@@ -113,79 +113,12 @@ export default function SMCSection() {
 
       {/* ── PART 1: Split-screen intro ── */}
       <div className="flex flex-col md:flex-row min-h-[480px] md:min-h-[560px] relative z-10">
-        {/* Left: Cinematic placeholder image */}
-        <div className="w-full md:w-1/2 relative min-h-[300px] md:min-h-full overflow-hidden group/img">
-          {/* Background */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(160deg, oklch(0.10 0.01 220) 0%, oklch(0.06 0.006 200) 60%, oklch(0.08 0.008 240) 100%)",
-            }}
-          />
-
-          {/* Grid/crosshatch texture overlay */}
-          <div
-            className="absolute inset-0 opacity-[0.06]"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M 32 0 L 0 0 L 0 32' fill='none' stroke='%23ffffff' stroke-width='0.6'/%3E%3C/svg%3E")`,
-              backgroundSize: "32px 32px",
-            }}
-          />
-
-          {/* Cinematic aspect-ratio lines overlay */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-full" style={{ maxWidth: "85%" }}>
-              <div
-                className="h-px w-full opacity-10"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, oklch(0.7 0.01 220), transparent)",
-                }}
-              />
-              <div className="h-32 md:h-48" />
-              <div
-                className="h-px w-full opacity-10"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, oklch(0.7 0.01 220), transparent)",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Corner marker (top-left) */}
-          <div className="absolute top-5 left-5 pointer-events-none">
-            <div
-              className="w-6 h-6 border-t border-l opacity-20"
-              style={{ borderColor: "oklch(0.7 0.01 220)" }}
-            />
-          </div>
-          {/* Corner marker (bottom-right) */}
-          <div className="absolute bottom-5 right-5 pointer-events-none">
-            <div
-              className="w-6 h-6 border-b border-r opacity-20"
-              style={{ borderColor: "oklch(0.7 0.01 220)" }}
-            />
-          </div>
-
-          {/* "Cinematic still" label — bottom-left */}
-          <div className="absolute bottom-6 left-6">
-            <span
-              className="text-[10px] font-body tracking-[0.2em] uppercase opacity-30"
-              style={{ color: "oklch(0.75 0.01 220)" }}
-            >
-              [ Cinematic Still ]
-            </span>
-          </div>
-
-          {/* Amber glow vignette on hover */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 60% at 50% 100%, oklch(0.65 0.18 60 / 0.07) 0%, transparent 70%)",
-            }}
+        {/* Left: Hero image */}
+        <div className="w-full md:w-1/2 relative min-h-[300px] md:min-h-full overflow-hidden flex items-center justify-center p-6 md:p-8">
+          <img
+            src="https://i.postimg.cc/T14f77Fx/Picsart-26-03-08-01-41-07-352-jpg.jpg"
+            alt="Sayan Mojumder Creations — Cinematic Still"
+            className="w-full aspect-video object-cover rounded-2xl border border-white/10 shadow-2xl"
           />
 
           {/* Right edge fade to blend into text */}

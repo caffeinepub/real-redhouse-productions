@@ -33,13 +33,14 @@ const staticProjects: ProjectCardData[] = [
     id: "wwml",
     title: "Where We (Almost) Loved",
     subtitle: "Jodi Jante Amay Bhalobaste",
-    roles: ["Directed"],
+    roles: ["Directed", "In Production"],
     year: 2026,
     logline:
       "A silent musical-psychological short exploring a love that almost was.",
     genres: "Sci-Fi | Psychological Romance | Musical",
     image: WWML_POSTER,
-    teaserStill: "/assets/generated/wwml-teaser-still.dim_800x450.jpg",
+    teaserStill:
+      "https://i.postimg.cc/YqhPfq31/Picsart-26-03-08-01-24-45-207-jpg.jpg",
     label: "Festival Short · Coming Soon",
     featured: true,
   },
@@ -88,7 +89,7 @@ const roleBadgeStyles: Record<string, string> = {
   Assisted: "bg-muted text-muted-foreground border-0 font-medium",
   "Co-Produced":
     "bg-muted/50 text-muted-foreground border border-border font-medium",
-  "In Production": "bg-amber/30 text-amber border border-amber/50 font-medium",
+  "In Production": "bg-orange-600 text-white border-0 font-bold",
 };
 
 function RoleBadge({ role }: { role: string }) {
@@ -257,17 +258,19 @@ function FeaturedCard({
           )}
 
           {project.teaserStill && (
-            <div className="mt-2 rounded-sm overflow-hidden border border-border/40">
-              <img
-                src={project.teaserStill}
-                alt="Teaser still"
-                className="w-full aspect-video object-cover opacity-90 hover:opacity-100 transition-opacity"
-                loading="lazy"
-              />
-              <div className="px-3 py-2 bg-muted/30 border-t border-border/30">
-                <p className="text-xs text-muted-foreground tracking-wide font-display uppercase">
-                  Teaser Still
-                </p>
+            <div className="mt-2 rounded-sm overflow-hidden border border-white/10">
+              <div className="relative w-full aspect-video">
+                <img
+                  src={project.teaserStill}
+                  alt="Teaser still"
+                  className="w-full h-full object-cover object-center opacity-90 hover:opacity-100 transition-opacity"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-0 left-0 right-0 px-3 py-2 bg-black/60 backdrop-blur-sm">
+                  <p className="text-xs text-white/80 tracking-widest font-display uppercase">
+                    Teaser Still
+                  </p>
+                </div>
               </div>
             </div>
           )}
