@@ -9,9 +9,10 @@ const tumseHiImg =
   "https://i.postimg.cc/fTy0nWxv/Document_from_Sayan_Mojumder_1.jpg";
 const alvidaImg = "https://i.postimg.cc/mDrFLT0v/THUMB.jpg";
 const sunRahaImg =
-  "https://i.postimg.cc/hvt85H8Z/SUN-RAHA-HA-TU-NA-YOUTUBE-THUMBNAIL-01-(1).png";
-const takeOlpoImg = "https://i.imghippo.com/files/qkfw7024baw.jpg";
-const aFriendImg = "https://i.imghippo.com/files/BOR6962Uu.jpeg";
+  "https://i.ibb.co/XkjHLN3z/SUN-RAHA-HA-TU-NA-YOUTUBE-THUMBNAIL-01-1.png";
+const takeOlpoImg =
+  "https://i.ibb.co/MJHqk3C/Whats-App-Image-2023-08-05-at-06-10-52.jpg";
+const aFriendImg = "https://i.ibb.co/SwLPXLL3/QHw1-R74-OLHo-HD-jpg.jpg";
 
 interface ProjectCardData {
   id: string;
@@ -26,6 +27,7 @@ interface ProjectCardData {
   label?: string;
   featured?: boolean;
   imdb?: string;
+  crowdfundLink?: string;
 }
 
 const staticProjects: ProjectCardData[] = [
@@ -43,6 +45,8 @@ const staticProjects: ProjectCardData[] = [
       "https://i.postimg.cc/YqhPfq31/Picsart-26-03-08-01-24-45-207-jpg.jpg",
     label: "Festival Short · Coming Soon",
     featured: true,
+    crowdfundLink:
+      "https://drive.google.com/file/d/12G_DbUrcTpoxDkw_PmDggukU0ejU1TZq/preview",
   },
   {
     id: "tumse",
@@ -63,21 +67,21 @@ const staticProjects: ProjectCardData[] = [
     id: "sunraha",
     title: "Sun Raha Hai Na Tu (Cover)",
     roles: ["Produced"],
-    year: 2024,
+    year: 2026,
     image: sunRahaImg,
   },
   {
     id: "takeolpo",
     title: "Take Olpo Kache Dakchi (Music Video)",
     roles: ["Co-Produced"],
-    year: 2024,
+    year: 2023,
     image: takeOlpoImg,
   },
   {
     id: "afriend",
     title: "A Friend Like You : Season 2 (Web Series)",
     roles: ["Co-Produced", "In Production"],
-    year: 2025,
+    year: 2027,
     image: aFriendImg,
   },
 ];
@@ -139,7 +143,7 @@ function FeaturedCard({
     <div
       ref={ref}
       className={cn(
-        "fade-in-up project-card col-span-full rounded-sm overflow-hidden border border-border/50 group cursor-pointer",
+        "fade-in-up project-card col-span-full rounded-sm overflow-hidden border border-transparent hover:border-amber/40 group cursor-pointer transition-colors duration-300",
         inView && "in-view",
       )}
       data-ocid={`projects.item.${index + 1}`}
@@ -274,6 +278,44 @@ function FeaturedCard({
               </div>
             </div>
           )}
+
+          {/* Back This Vision — Hero gradient fundraising button */}
+          {project.crowdfundLink && (
+            <div className="mt-4">
+              <a
+                href={project.crowdfundLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-ocid="projects.back_vision.button"
+                className="back-this-vision-btn inline-flex flex-col items-center justify-center w-full sm:w-auto px-8 py-4 rounded-sm text-white transition-all duration-300 relative overflow-hidden"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #7f1d1d 0%, #c2410c 55%, #f97316 100%)",
+                  boxShadow:
+                    "0 4px 24px rgba(249,115,22,0.25), 0 1px 0 rgba(255,255,255,0.08) inset",
+                }}
+              >
+                {/* Shimmer sweep overlay */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%)",
+                    animation: "btnShimmer 5s ease-in-out infinite",
+                  }}
+                />
+                {/* Primary CTA text */}
+                <span className="relative z-10 font-display font-bold text-sm tracking-widest uppercase text-white">
+                  BACK THIS VISION
+                </span>
+                {/* Subtext */}
+                <span className="relative z-10 font-body text-[11px] tracking-wide text-white/70 mt-0.5">
+                  View Pitch Deck &amp; Support the Film
+                </span>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -295,7 +337,7 @@ function ProjectCard({
     <div
       ref={ref}
       className={cn(
-        "fade-in-up project-card rounded-sm overflow-hidden border border-border/50 bg-card group cursor-pointer",
+        "fade-in-up project-card rounded-sm overflow-hidden border border-transparent hover:border-amber/40 bg-card group cursor-pointer transition-colors duration-300",
         inView && "in-view",
         `delay-${delay}`,
       )}
@@ -392,7 +434,12 @@ export default function ProjectsSection() {
           <button
             type="button"
             onClick={() => setExpanded((prev) => !prev)}
-            className="btn-amber-ghost inline-flex items-center gap-2 px-8 py-3 rounded-sm text-sm uppercase tracking-wide font-display transition-all duration-200"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-sm text-sm uppercase tracking-wide font-display transition-all duration-200"
+            style={{
+              color: "#f97316",
+              border: "1px solid #f97316",
+              background: "transparent",
+            }}
             data-ocid="projects.toggle"
           >
             {expanded ? (

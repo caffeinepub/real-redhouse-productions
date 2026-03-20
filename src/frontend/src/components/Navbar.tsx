@@ -16,14 +16,52 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const sectionIds = [
+  "home",
+  "projects",
+  "redhouse",
+  "smc",
+  "about",
+  "services",
+  "contact",
+];
+
 export default function Navbar({ theme, onThemeToggle }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("home");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    for (const id of sectionIds) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          }
+        },
+        { rootMargin: "-40% 0px -50% 0px", threshold: 0 },
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    }
+
+    return () => {
+      for (const obs of observers) obs.disconnect();
+    };
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -55,18 +93,30 @@ export default function Navbar({ theme, onThemeToggle }: NavbarProps) {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <button
-              key={link.href}
-              type="button"
-              onClick={() => handleNavClick(link.href)}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground tracking-wide transition-colors duration-200 relative group"
-              data-ocid={`nav.${link.label.toLowerCase()}.link`}
-            >
-              {link.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-amber group-hover:w-full transition-all duration-300" />
-            </button>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = link.href === `#${activeSection}`;
+            return (
+              <button
+                key={link.href}
+                type="button"
+                onClick={() => handleNavClick(link.href)}
+                className="text-sm font-medium tracking-wide transition-colors duration-200 relative group"
+                style={{ color: isActive ? "#f97316" : undefined }}
+                data-ocid={`nav.${link.label.toLowerCase().replace(/[^a-z0-9]/g, "")}.link`}
+              >
+                <span
+                  className={
+                    isActive
+                      ? "text-orange-500"
+                      : "text-muted-foreground group-hover:text-foreground"
+                  }
+                >
+                  {link.label}
+                </span>
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-amber group-hover:w-full transition-all duration-300" />
+              </button>
+            );
+          })}
 
           <button
             type="button"
@@ -121,17 +171,24 @@ export default function Navbar({ theme, onThemeToggle }: NavbarProps) {
         } bg-background/98 backdrop-blur-md border-b border-border/60`}
       >
         <div className="px-6 py-4 flex flex-col gap-1">
-          {navLinks.map((link) => (
-            <button
-              key={link.href}
-              type="button"
-              onClick={() => handleNavClick(link.href)}
-              className="py-3 text-base font-medium text-muted-foreground hover:text-amber border-b border-border/30 last:border-0 tracking-wide transition-colors text-left w-full"
-              data-ocid={`nav.mobile.${link.label.toLowerCase()}.link`}
-            >
-              {link.label}
-            </button>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = link.href === `#${activeSection}`;
+            return (
+              <button
+                key={link.href}
+                type="button"
+                onClick={() => handleNavClick(link.href)}
+                className={`py-3 text-base font-medium border-b border-border/30 last:border-0 tracking-wide transition-colors text-left w-full ${
+                  isActive
+                    ? "text-orange-500"
+                    : "text-muted-foreground hover:text-amber"
+                }`}
+                data-ocid={`nav.mobile.${link.label.toLowerCase().replace(/[^a-z0-9]/g, "")}.link`}
+              >
+                {link.label}
+              </button>
+            );
+          })}
         </div>
       </div>
     </header>

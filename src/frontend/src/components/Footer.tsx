@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2 text-xs text-muted-foreground font-body">
           <span className="text-amber font-display font-medium tracking-wide">
-            Real Redhouse Productions
+            Sayan Mojumder
           </span>
           <span className="opacity-40">·</span>
           <span>Kolkata, India</span>

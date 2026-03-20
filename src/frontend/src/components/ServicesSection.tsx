@@ -3,49 +3,59 @@ import { Music, Palette, Scissors, Video } from "lucide-react";
 import { useRef } from "react";
 import { useInView } from "../hooks/useInView";
 
-// ─── Arsenal blueprint assets (generated — served from public/) ───────────────
-const arsenalFx3 =
-  "/assets/generated/arsenal-sony-fx3-transparent.dim_400x400.png";
-const arsenalA7s =
-  "/assets/generated/arsenal-sony-a7siii-transparent.dim_400x400.png";
-const arsenalGmaster =
-  "/assets/generated/arsenal-sony-gmaster-transparent.dim_400x400.png";
-const arsenalDrone =
-  "/assets/generated/arsenal-dji-drone-transparent.dim_400x400.png";
-const arsenalPlaceholder =
-  "/assets/generated/arsenal-placeholder-transparent.dim_400x400.png";
-const arsenalAudio =
-  "/assets/generated/arsenal-audio-recorder-transparent.dim_400x400.png";
-const arsenalDaVinci =
-  "/assets/generated/arsenal-davinci-resolve-transparent.dim_400x400.png";
-const arsenalAfterEffects =
-  "/assets/generated/arsenal-after-effects-transparent.dim_400x400.png";
-const arsenalGimbal =
-  "/assets/generated/arsenal-gimbal-transparent.dim_400x400.png";
-const arsenalPremiere =
-  "/assets/generated/arsenal-premiere-pro-transparent.dim_400x400.png";
-
 // ─── Arsenal Data ─────────────────────────────────────────────────────────────
 
 const arsenalItems = [
-  { name: "Sony FX3", category: "Cinema Line", img: arsenalFx3 },
-  { name: "Sony A7S III", category: "Alpha Series", img: arsenalA7s },
-  { name: "Sony G-Master", category: "Premium Optics", img: arsenalGmaster },
+  {
+    name: "Sony FX3",
+    category: "Cinema Line",
+    img: "https://i.ibb.co/ZRYQNdxJ/pngwing-com-6.png",
+  },
+  {
+    name: "Sony A7S III",
+    category: "Alpha Series",
+    img: "https://i.ibb.co/tpx7Xvh2/pngwing-com-7.png",
+  },
+  {
+    name: "Sony G-Master",
+    category: "Premium Optics",
+    img: "https://i.ibb.co/mVDHDsyF/pngwing-com-8.png",
+  },
   {
     name: "DJI Mini 4 Pro",
     category: "Aerial Cinematography",
-    img: arsenalDrone,
+    img: "https://i.ibb.co/KzBjNthg/pngwing-com-4.png",
   },
-  { name: "Aputure", category: "Cinematic Lighting", img: arsenalPlaceholder },
+  {
+    name: "Aputure",
+    category: "Cinematic Lighting",
+    img: "https://i.ibb.co/zT3Kkfmg/pngwing-com-5.png",
+  },
   {
     name: "Audient & Yamaha",
     category: "Pro Audio & Interface",
-    img: arsenalAudio,
+    img: "https://i.ibb.co/gLqQTgBt/pngwing-com-9.png",
   },
-  { name: "DaVinci Resolve", category: "Color & Edit", img: arsenalDaVinci },
-  { name: "Blender", category: "3D & VFX", img: arsenalAfterEffects },
-  { name: "FL Studio", category: "Audio Engineering", img: arsenalPremiere },
-  { name: "Dolby Atmos", category: "Spatial Audio", img: arsenalGimbal },
+  {
+    name: "DaVinci Resolve",
+    category: "Color & Edit",
+    img: "https://i.ibb.co/yFjMYjK3/pngwing-com-2.png",
+  },
+  {
+    name: "Blender",
+    category: "3D & VFX",
+    img: "https://i.ibb.co/23h10PGM/pngwing-com-1.png",
+  },
+  {
+    name: "FL Studio",
+    category: "Audio Engineering",
+    img: "https://i.ibb.co/WpPPP7xg/pngwing-com.png",
+  },
+  {
+    name: "Dolby Atmos",
+    category: "Spatial Audio",
+    img: "https://i.ibb.co/ZRyBdGDF/pngwing-com-3.png",
+  },
 ] as const;
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -145,10 +155,12 @@ function PillarCard({ pillar, index }: PillarCardProps) {
         scrollToId(pillar.id);
       }}
       className={cn(
-        "fade-in-up group border border-border/50 rounded-sm p-6 bg-card/40",
+        "fade-in-up group border border-blue-900/50 rounded-sm p-6 bg-card/40",
         "hover:bg-card transition-all duration-300 hover:border-amber/40",
         "hover:shadow-[0_0_24px_oklch(var(--amber)/0.15)] block cursor-pointer",
-        "w-[85vw] min-w-[85vw] snap-start shrink-0 whitespace-normal md:w-auto md:min-w-0",
+        "hover:-translate-y-[3px]",
+        "w-[85vw] min-w-[85vw] snap-center shrink-0 flex-none whitespace-normal md:w-auto md:min-w-0",
+        "relative pb-7",
         inView && "in-view",
         delayClass,
       )}
@@ -166,6 +178,13 @@ function PillarCard({ pillar, index }: PillarCardProps) {
             {pillar.summary}
           </p>
         </div>
+      </div>
+      {/* View Details indicator */}
+      <div
+        className="absolute bottom-3 right-3 text-xs font-display font-medium tracking-wide"
+        style={{ color: "#f97316" }}
+      >
+        View Details ↓
       </div>
     </a>
   );
@@ -193,15 +212,24 @@ function DeepDiveBlock({ block }: DeepDiveBlockProps) {
       {/* Image — always rendered first on mobile via order */}
       <div
         className={cn(
-          "order-first w-full relative z-10",
+          "order-first w-full relative z-0",
           "md:w-1/2",
-          block.textLeft ? "md:-ml-8" : "md:-mr-8",
+          // lg-only negative margin: bleeds toward the text column
+          block.textLeft ? "lg:-mr-12" : "lg:-ml-12",
         )}
       >
         <img
           src={block.image}
           alt={block.heading}
-          className="w-full aspect-video object-cover rounded-sm border border-white/10 shadow-2xl"
+          className={cn(
+            // Mobile / tablet: keep the card look
+            "w-full aspect-video object-cover rounded-sm border border-white/10 shadow-2xl",
+            // Desktop (lg+): strip rigid card, apply fade mask
+            "lg:rounded-none lg:border-0 lg:shadow-none",
+            block.textLeft
+              ? "lg:[mask-image:linear-gradient(to_right,black_60%,transparent_100%)] lg:[-webkit-mask-image:linear-gradient(to_right,black_60%,transparent_100%)]"
+              : "lg:[mask-image:linear-gradient(to_left,black_60%,transparent_100%)] lg:[-webkit-mask-image:linear-gradient(to_left,black_60%,transparent_100%)]",
+          )}
         />
       </div>
 
@@ -209,6 +237,8 @@ function DeepDiveBlock({ block }: DeepDiveBlockProps) {
       <div
         className={cn(
           "w-full relative z-0",
+          // Ensure text sits above the bleeding image edge on desktop
+          "lg:z-20 lg:relative",
           "md:w-1/2",
           block.textLeft ? "md:pr-12" : "md:pl-12",
         )}
@@ -233,11 +263,16 @@ export default function ServicesSection() {
   const [headingRef, headingInView] = useInView<HTMLDivElement>();
   const [craftRef, craftInView] = useInView<HTMLDivElement>();
   const arsenalRef = useRef<HTMLDivElement>(null);
+  const mobileCarouselRef = useRef<HTMLDivElement>(null);
 
   const scrollArsenalLeft = () =>
     arsenalRef.current?.scrollBy({ left: -300, behavior: "smooth" });
   const scrollArsenalRight = () =>
     arsenalRef.current?.scrollBy({ left: 300, behavior: "smooth" });
+  const scrollMobileLeft = () =>
+    mobileCarouselRef.current?.scrollBy({ left: -300, behavior: "smooth" });
+  const scrollMobileRight = () =>
+    mobileCarouselRef.current?.scrollBy({ left: 300, behavior: "smooth" });
 
   return (
     <section id="services" className="py-24 md:py-32 bg-background">
@@ -254,13 +289,67 @@ export default function ServicesSection() {
             What I Do
           </h2>
           <div className="mt-4 w-16 h-px bg-amber opacity-60" />
+          {/* Mobile-only carousel nav buttons */}
+          <div className="flex md:hidden items-center gap-3 mt-4">
+            <button
+              type="button"
+              onClick={scrollMobileLeft}
+              aria-label="Previous"
+              className="w-9 h-9 flex items-center justify-center rounded-full cursor-pointer border border-cyan-400/40 bg-transparent text-cyan-300 hover:text-white hover:border-cyan-300/80 hover:shadow-[0_0_12px_rgba(34,211,238,0.5),inset_0_0_8px_rgba(34,211,238,0.1)] transition-all duration-300"
+            >
+              <svg
+                viewBox="0 0 18 18"
+                fill="none"
+                className="w-4 h-4"
+                strokeWidth="1.5"
+                aria-label="Previous"
+                role="img"
+              >
+                <title>Previous</title>
+                <polyline
+                  points="11,4 6,9 11,14"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={scrollMobileRight}
+              aria-label="Next"
+              className="w-9 h-9 flex items-center justify-center rounded-full cursor-pointer border border-cyan-400/40 bg-transparent text-cyan-300 hover:text-white hover:border-cyan-300/80 hover:shadow-[0_0_12px_rgba(34,211,238,0.5),inset_0_0_8px_rgba(34,211,238,0.1)] transition-all duration-300"
+            >
+              <svg
+                viewBox="0 0 18 18"
+                fill="none"
+                className="w-4 h-4"
+                strokeWidth="1.5"
+                aria-label="Next"
+                role="img"
+              >
+                <title>Next</title>
+                <polyline
+                  points="7,4 12,9 7,14"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* ── Phase 1: Pillar cards ─────────────────────────── */}
         {/* Mobile: horizontal snap carousel */}
         <div
-          className="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-hide md:hidden"
-          style={{ scrollSnapType: "x mandatory" }}
+          ref={mobileCarouselRef}
+          className="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-4 pr-8 scrollbar-hide md:hidden"
+          style={{
+            scrollSnapType: "x mandatory",
+            overflowY: "hidden",
+            touchAction: "pan-x",
+          }}
         >
           {pillars.map((pillar, i) => (
             <PillarCard key={pillar.id} pillar={pillar} index={i} />
@@ -324,7 +413,6 @@ export default function ServicesSection() {
                   "transition-all duration-300",
                 )}
               >
-                {/* SVG wireframe left chevron */}
                 <svg
                   viewBox="0 0 18 18"
                   fill="none"
@@ -355,7 +443,6 @@ export default function ServicesSection() {
                   "transition-all duration-300",
                 )}
               >
-                {/* SVG wireframe right chevron */}
                 <svg
                   viewBox="0 0 18 18"
                   fill="none"
@@ -377,7 +464,7 @@ export default function ServicesSection() {
           </div>
           <div className="w-16 h-px bg-amber opacity-60 mb-6" />
 
-          {/* Scrollable carousel — scrollbar hidden on all screen sizes */}
+          {/* Scrollable carousel */}
           <div
             ref={arsenalRef}
             className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory gap-4 pb-8 scrollbar-hide"
@@ -398,12 +485,21 @@ export default function ServicesSection() {
                   "transition-all duration-300 group",
                 )}
               >
-                {/* Blueprint illustration */}
-                <div className="w-full aspect-square flex items-center justify-center overflow-hidden">
+                {/* Logo image with uniform styling */}
+                <div
+                  className="w-full aspect-square overflow-hidden rounded-sm"
+                  style={{ backgroundColor: "#000000" }}
+                >
                   <img
                     src={item.img}
                     alt={item.name}
-                    className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] group-hover:drop-shadow-[0_0_16px_rgba(34,211,238,0.8)] transition-all duration-300"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                      padding: "1.5rem",
+                      backgroundColor: "#000000",
+                    }}
                   />
                 </div>
 

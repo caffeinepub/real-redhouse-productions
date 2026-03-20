@@ -1,0 +1,251 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;600;700;800;900&family=General+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background & foreground */
+    --background: 0.08 0 0;
+    --foreground: 0.95 0.005 80;
+
+    /* Card */
+    --card: 0.1 0.002 40;
+    --card-foreground: 0.95 0.005 80;
+
+    /* Popover */
+    --popover: 0.1 0.002 40;
+    --popover-foreground: 0.95 0.005 80;
+
+    /* Primary */
+    --primary: 0.65 0.18 60;
+    --primary-foreground: 0.08 0 0;
+
+    /* Secondary */
+    --secondary: 0.15 0.005 40;
+    --secondary-foreground: 0.9 0.005 80;
+
+    /* Muted */
+    --muted: 0.14 0.003 40;
+    --muted-foreground: 0.55 0.01 60;
+
+    /* Accent */
+    --accent: 0.15 0.01 60;
+    --accent-foreground: 0.95 0.005 80;
+
+    /* Destructive */
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.95 0.005 80;
+
+    /* Border / Input / Ring */
+    --border: oklch(0.22 0.005 60);
+    --input: oklch(0.18 0.005 60);
+    --ring: 0.65 0.18 60;
+
+    /* Amber brand color */
+    --amber: 0.65 0.18 60;
+    --amber-dim: 0.5 0.14 60;
+    --amber-glow: 0.75 0.2 60;
+
+    /* Film dark */
+    --film-dark: 0.07 0 0;
+    --film-darker: 0.04 0 0;
+
+    /* Chart colors */
+    --chart-1: 0.65 0.18 60;
+    --chart-2: 0.6 0.15 200;
+    --chart-3: 0.55 0.18 140;
+    --chart-4: 0.6 0.2 310;
+    --chart-5: 0.5 0.15 25;
+
+    /* Sidebar */
+    --sidebar: 0.1 0.002 40;
+    --sidebar-foreground: 0.95 0.005 80;
+    --sidebar-primary: 0.65 0.18 60;
+    --sidebar-primary-foreground: 0.08 0 0;
+    --sidebar-accent: 0.15 0.01 60;
+    --sidebar-accent-foreground: 0.95 0.005 80;
+    --sidebar-border: oklch(0.22 0.005 60);
+    --sidebar-ring: 0.65 0.18 60;
+
+    --radius: 0.375rem;
+  }
+
+  .light {
+    --background: 0.97 0 0;
+    --foreground: 0.1 0.01 40;
+    --card: 0.99 0 0;
+    --card-foreground: 0.1 0.01 40;
+    --popover: 0.99 0 0;
+    --popover-foreground: 0.1 0.01 40;
+    --primary: 0.55 0.18 60;
+    --primary-foreground: 0.99 0 0;
+    --secondary: 0.93 0.005 60;
+    --secondary-foreground: 0.2 0.01 40;
+    --muted: 0.93 0.005 60;
+    --muted-foreground: 0.45 0.02 40;
+    --accent: 0.93 0.01 60;
+    --accent-foreground: 0.2 0.01 40;
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.99 0 0;
+    --border: oklch(0.85 0.008 60);
+    --input: oklch(0.88 0.005 60);
+    --ring: 0.55 0.18 60;
+    --amber: 0.55 0.18 60;
+    --amber-dim: 0.45 0.14 60;
+    --amber-glow: 0.65 0.2 60;
+    --film-dark: 0.95 0 0;
+    --film-darker: 0.9 0 0;
+  }
+
+  * {
+    border-color: oklch(var(--border));
+  }
+
+  body {
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
+    font-family: "General Sans", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Amber CTA button */
+  .btn-amber {
+    @apply bg-amber text-film-dark font-display font-semibold tracking-wider uppercase transition-all duration-200;
+    box-shadow: 0 0 20px oklch(var(--amber) / 0.25);
+  }
+  .btn-amber:hover {
+    box-shadow: 0 0 40px oklch(var(--amber) / 0.45);
+    filter: brightness(1.08);
+  }
+
+  /* Ghost button — orange border + text, transparent background */
+  .btn-amber-ghost {
+    color: #f97316;
+    border: 1px solid #f97316;
+    background: transparent;
+    @apply font-display font-semibold tracking-wider uppercase transition-all duration-200;
+  }
+  .btn-amber-ghost:hover {
+    background: rgba(249, 115, 22, 0.08);
+    box-shadow: 0 0 18px rgba(249, 115, 22, 0.25);
+  }
+
+  /* Fade-in-up animation for IntersectionObserver */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-in-up.delay-100 {
+    transition-delay: 0.1s;
+  }
+  .fade-in-up.delay-200 {
+    transition-delay: 0.2s;
+  }
+  .fade-in-up.delay-300 {
+    transition-delay: 0.3s;
+  }
+  .fade-in-up.delay-400 {
+    transition-delay: 0.4s;
+  }
+  .fade-in-up.delay-500 {
+    transition-delay: 0.5s;
+  }
+}
+
+@layer utilities {
+  /* Letter-spacing utilities */
+  .tracking-cinematic {
+    letter-spacing: 0.3em;
+  }
+  .tracking-wide-plus {
+    letter-spacing: 0.15em;
+  }
+
+  /* Hide scrollbar cross-browser */
+  .hide-scrollbar::-webkit-scrollbar,
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar,
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom thin scrollbar for bio text */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: oklch(var(--amber) / 0.3);
+    border-radius: 2px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: oklch(var(--amber) / 0.5);
+  }
+}
+
+/* ── Announcement Ticker Marquee ───────────────────────── */
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  animation: ticker-scroll 40s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Back This Vision button shimmer ───────────────────── */
+@keyframes btnShimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(300%) skewX(-15deg);
+  }
+}
+
+/* ── Back This Vision button hover glow ────────────────── */
+.back-this-vision-btn:hover {
+  box-shadow: 0 6px 32px rgba(249, 115, 22, 0.45), 0 1px 0
+    rgba(255, 255, 255, 0.08) inset;
+  filter: brightness(1.08);
+}
+
+/* ── Back This Vision button pulse (legacy) ─────────────── */
+@keyframes backVisionPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px 2px rgba(249, 115, 22, 0.35);
+    border-color: #f97316;
+  }
+  50% {
+    box-shadow: 0 0 22px 6px rgba(249, 115, 22, 0.6);
+    border-color: #fb923c;
+  }
+}

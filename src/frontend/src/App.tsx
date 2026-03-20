@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { useEffect, useState } from "react";
 import AboutSection from "./components/AboutSection";
+import AnikaWidget from "./components/AnikaWidget";
 import AnnouncementTicker from "./components/AnnouncementTicker";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
@@ -85,6 +86,7 @@ export default function App() {
           },
         }}
       />
+      <AnikaWidget />
     </div>
   );
 }

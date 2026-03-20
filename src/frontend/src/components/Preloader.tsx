@@ -84,6 +84,22 @@ export default function Preloader() {
           LOADING
         </p>
 
+        {/* Setting the stage subtitle */}
+        <p
+          style={{
+            fontFamily: "'Cabinet Grotesk', sans-serif",
+            fontSize: "clamp(0.55rem, 1.5vw, 0.7rem)",
+            fontWeight: 400,
+            letterSpacing: "0.25em",
+            color: "rgba(255,255,255,0.35)",
+            textTransform: "uppercase" as const,
+            margin: 0,
+            textAlign: "center",
+          }}
+        >
+          Setting the stage.
+        </p>
+
         {/* Thin progress bar */}
         <div
           style={{

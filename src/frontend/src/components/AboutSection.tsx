@@ -2,15 +2,11 @@ import { cn } from "@/lib/utils";
 import { useInView } from "../hooks/useInView";
 
 const bioParagraphs = [
-  "I believe the best stories come from unconventional journeys. At my core, I am a 21-year-old student of cinema and Science, refusing to be boxed into a single category.",
-  "My foundation in the arts didn't start behind a camera, but on the stage. Since the age of four, I started learning recitation and performing arts at Shankhamala in Belgharia (Kolkata) under the guidance of Sumantra Sengupta. This eventually led me to audio stories and stage performances. I spent three years in a drama program at the Nehru Children's Museum, Kolkata, trying to understand human emotions. I was lucky enough to absorb the nuances of performance through workshops with theatre stalwarts like Jagannath Bose, Gautam Halder, and Debshankar Halder, and explored the silent art of mime under Anjan Deb.",
-  "My most profound influence came from closely interacting and attending workshops with the legendary Late Soumitra Chatterjee. He taught me the very soul of a narrative, making me realize I wanted to build my world around it.",
-  "I also had the privilege of attending a workshop by Sandip Ray, son of the maestro Satyajit Ray. Even this brief experience gave me an invaluable glimpse into the legacy of Indian cinema.",
-  "My path isn't a straight line. I earned a medical seat but walked away—a practical financial decision to spare my family the steep costs of Semi-Govt. medical education. Instead, I am pursuing my Bachelor of Physiotherapy (BPT) while quietly building my filmmaking goals.",
-  "This pragmatism also led me to a Cosmetology certification. I practiced for a year and co-founded a skincare brand, 'Promise'. The B2C market is unforgiving and we had to pivot, but bootstrapping a business taught me invaluable lessons in marketing, risk-taking, and execution.",
-  "Through all this, the camera kept calling. I shifted to post-production, got certified as a Blackmagic Design Colorist, and worked at Philharmonic Studios (Kolkata). There, I saw talented, hungry artists struggling due to a lack of resources. Thus, Real Redhouse Productions was born—a small, passion-driven initiative creating good cinema with underrated talent. Hustling on micro-budgets, we've produced 12+ music videos and a web series, proving vision outshines heavy capital.",
-  "Currently, I'm expanding into VFX (DaVinci & Blender) and prepping my directorial debut: the short film 'Jodi Jante Amay Bhalobaste (Where We Almost Loved)'.",
-  "Whether directing a commercial, studying human anatomy, or color-grading, I am still building myself. Always open to collaborating with filmmakers, actors, technicians, and other visionaries.",
+  "My education in storytelling didn't begin behind a camera. It began on stage.",
+  "Since the age of four, I trained in recitation and performing arts at Shankhamala, Belgharia, under Sumantra Sengupta — a foundation that eventually led me to audio stories, stage performances, and three years in a drama program at the Nehru Children's Museum, Kolkata. Along the way, I worked through workshops with theatre practitioners like Jagannath Bose, Gautam Halder, and Debshankar Halder, and explored mime under Anjan Deb.",
+  "The most defining influence came from time spent with the late Soumitra Chatterjee — conversations and workshops that fundamentally changed how I understood narrative and the human beings inside it. A workshop with Sandip Ray, son of the maestro Satyajit Ray, offered its own quiet lesson in what it means to carry a cinematic legacy.",
+  "Cinema pulled me toward post-production first. I trained as a Blackmagic Design certified colorist and worked at Philharmonic Studios, Kolkata — where I saw firsthand what hungry, talented artists could do without resources. That observation became Real Redhouse Productions: a deliberately lean outfit built around the belief that vision doesn't require capital to be serious.",
+  "I am, above everything else, a student of the craft — still learning, still making work.",
 ];
 
 const credentials = [
@@ -67,9 +63,6 @@ export default function AboutSection() {
                   loading="lazy"
                 />
               </div>
-              <p className="mt-3 text-xs italic text-muted-foreground text-center font-body opacity-60">
-                On set
-              </p>
             </div>
           </div>
 
@@ -81,20 +74,42 @@ export default function AboutSection() {
               textInView && "in-view",
             )}
           >
-            <div className="space-y-5 max-h-[70vh] overflow-y-auto pr-2">
-              {bioParagraphs.map((para) => (
-                <p
-                  key={para.slice(0, 40)}
-                  className={cn(
-                    "text-base leading-relaxed font-body",
-                    para.startsWith("I believe")
-                      ? "text-foreground font-medium text-lg"
-                      : "text-muted-foreground",
-                  )}
-                >
-                  {para}
-                </p>
-              ))}
+            <div className="space-y-6 max-h-[70vh] overflow-y-auto pr-2">
+              {bioParagraphs.map((para, index) => {
+                const isFirst = para.startsWith("My education");
+                const isLast = index === bioParagraphs.length - 1;
+
+                if (isFirst) {
+                  return (
+                    <p
+                      key={para.slice(0, 40)}
+                      className="text-xl md:text-2xl italic leading-relaxed font-body text-foreground border-l-2 border-amber pl-5"
+                    >
+                      {para}
+                    </p>
+                  );
+                }
+
+                if (isLast) {
+                  return (
+                    <div key={para.slice(0, 40)} className="pt-2">
+                      <div className="w-8 h-px bg-amber/40 mb-4" />
+                      <p className="text-base leading-relaxed font-body italic text-muted-foreground/70">
+                        {para}
+                      </p>
+                    </div>
+                  );
+                }
+
+                return (
+                  <p
+                    key={para.slice(0, 40)}
+                    className="text-base leading-relaxed font-body text-muted-foreground"
+                  >
+                    {para}
+                  </p>
+                );
+              })}
             </div>
 
             {/* Credentials strip */}

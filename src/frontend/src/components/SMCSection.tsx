@@ -15,7 +15,7 @@ function ActivePressCard({ index }: { index: number }) {
       ref={ref}
       className={cn(
         "fade-in-up group rounded-xl overflow-hidden cursor-pointer",
-        "w-[80vw] max-w-[300px] flex-shrink-0 snap-start",
+        "w-[80vw] max-w-[300px] flex-shrink-0 snap-center",
         "md:w-auto md:max-w-none md:flex-shrink md:snap-align-none",
         inView && "in-view",
       )}
@@ -75,7 +75,7 @@ function AnticipationCard({ index, label }: { index: number; label: string }) {
       ref={ref}
       className={cn(
         "fade-in-up group rounded-xl overflow-hidden cursor-default select-none",
-        "w-[80vw] max-w-[300px] flex-shrink-0 snap-start",
+        "w-[80vw] max-w-[300px] flex-shrink-0 snap-center",
         "md:w-auto md:max-w-none md:flex-shrink md:snap-align-none",
         inView && "in-view",
       )}
@@ -334,7 +334,10 @@ export default function SMCSection() {
         </h3>
 
         {/* Press card container: swipeable horizontal carousel on mobile, 3-col grid on desktop */}
-        <div className="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-hide md:grid md:grid-cols-3 md:gap-5 md:overflow-x-visible md:snap-none max-w-5xl mx-auto">
+        <div
+          className="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-hide md:grid md:grid-cols-3 md:gap-5 md:overflow-x-visible md:snap-none max-w-5xl mx-auto"
+          style={{ overflowY: "hidden", touchAction: "pan-x" }}
+        >
           <ActivePressCard index={1} />
           <AnticipationCard index={2} label="Press Release Pending" />
           <AnticipationCard index={3} label="Upcoming Feature" />
